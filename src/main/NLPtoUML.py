@@ -4,9 +4,6 @@ from spacy.lang.en import English
 
 # nltk Imports
 import nltk
-from nltk.corpus import stopwords
-from nltk.corpus import wordnet
-from nltk.stem import PorterStemmer
 from nltk.tokenize import sent_tokenize, word_tokenize
 
 #plantUML Imports
@@ -18,6 +15,12 @@ import string
 from os.path import abspath
 import collections
 from collections import defaultdict
+
+#nltk downloads
+nltk.download('punkt_tab')
+nltk.download('averaged_perceptron_tagger_eng')
+nltk.download('wordnet')
+nltk.download('omw-1.4')
 
 def tokenAndPOS_Tags(sent):
     nlp = English()
@@ -69,7 +72,7 @@ def staticPlantumlCode(text):
     doc = sent_tokenize(text)
     main_sub_component = []
 
-    f = open('model_specs.txt', 'w')
+    f = open(r"/Users/candi/PycharmProjects/NLPtoUML/src/uml/s_model_specs.txt", "w")
     # Iterate sentence-by-sentence then word-by-word
     for sent in doc:
         # Call Tokenize and Stemming and POS Tag Function
@@ -136,7 +139,7 @@ def staticPlantumlCode(text):
 def dynamicPlantumlCode(text):
     doc = sent_tokenize(text)
 
-    f = open('d_model_specs.txt', 'w')
+    f = open(r"/Users/candi/PycharmProjects/NLPtoUML/src/uml/d_model_specs.txt", 'w')
 
     # Needed to state what type of diagram is being constructed (State Diagram)
     f.write("state Diagram {\nhide empty description \n[*]--> Start\n")
@@ -177,29 +180,6 @@ def dynamicPlantumlCode(text):
     f.close()
 
 
-# specification text
-static_text = (
-    " 1.	The FGS_System consists of four components: the Left_Side_FGS, an LR_Bus, and an RL_Bus, the Right_Side_FGS."
-    " 2.	LR_Bus establishes connection between Left_Side_FGS and Right_Side_FGS."
-    " 3.	The LR_Bus takes input from clock CLK2."
-    " 4.	RL_Bus establishes connection between Left_Side_FGS and Right_Side_FGS."
-    " 5.	The RL_Bus takes input from clock CLK4."
-    " 6.	The Left_Side_FGS accepts as input a boolean value of Left_Transfer_Switch and Left_Primary_Side."
-    " 8.	The Left_Side_FGS takes input from a synchronous clock CLK1."
-    " 7.	The Right_Side_FGS accepts as input a boolean value of Right_Transfer_Switch and Right_Primary_Side."
-    " 9.	The Right_Side_FGS takes input from a synchronous clock CLK3.")
-
-dynamic_text = (" When the condition Primary_Side is true, it transits from the Start state to the Pilot_Flying state."
-                " When the condition Primary_Side is false, it transits from the Start state to the Inhibited state."
-                " The variable Inhibit_count is initialized to Zero at the Inhibited state."
-                " The variable Inhibit_count is updated to Inhibit_count++ at the Inhibited state."
-                "When the condition Inhibit_count>=2 is true, it transfers from the Inhibited state to the Listening "
-                "state. "
-                " When the Transfer_Switch event occurs, the Listening state transitions to the Pilot_Flying state."
-                "When the Other_Side_Pilot_Flying event occurs, the Pilot_Flying state transitions to the Inhibited "
-                "state.")
-
-
 def plantUMLServer(path):
     server = PlantUML(url='http://www.plantuml.com/plantuml/img/',
                       basic_auth={},
@@ -208,7 +188,12 @@ def plantUMLServer(path):
 
 
 if __name__ == "__main__":
-    dynamicPlantumlCode(dynamic_text)
-    staticPlantumlCode(static_text)
-    plantUMLServer(" ")
-    plantUMLServer(" ")
+    # specification text
+    static_text = open(r"/Users/candi/PycharmProjects/NLPtoUML/src/data/static_text.txt", "r")
+
+    dynamic_text = open(r"/Users/candi/PycharmProjects/NLPtoUML/src/data/dynamic_text.txt", "r")
+
+    dynamicPlantumlCode(dynamic_text.read())
+    staticPlantumlCode(static_text.read())
+    plantUMLServer("/Users/candi/PycharmProjects/NLPtoUML/src/uml/d_model_specs.txt")
+    plantUMLServer("/Users/candi/PycharmProjects/NLPtoUML/src/uml/s_model_specs.txt")

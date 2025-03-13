@@ -1,0 +1,11 @@
+state Diagram {
+hide empty description 
+[*]--> Start
+Start-->Pilot_Flying:[Primary_Side]
+Start-->Inhibited:not[Primary_Side]
+Inhibited:Inhibit_count=Zero
+Inhibited:Inhibit_count=Inhibit_count++
+Inhibited-->Listening:[Inhibit_count>=2]
+Listening-->Pilot_Flying:event[Transfer_Switch]
+Pilot_Flying-->Inhibited:event[Other_Side_Pilot_Flying]
+}

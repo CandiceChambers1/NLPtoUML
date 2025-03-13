@@ -1,0 +1,7 @@
+When the condition Primary_Side is true, it transits from the Start state to the Pilot_Flying state.
+When the condition Primary_Side is false, it transits from the Start state to the Inhibited state.
+The variable Inhibit_count is initialized to Zero at the Inhibited state.
+The variable Inhibit_count is updated to Inhibit_count++ at the Inhibited state.
+When the condition Inhibit_count>=2 is true, it transfers from the Inhibited state to the Listening state.
+When the Transfer_Switch event occurs, the Listening state transitions to the Pilot_Flying state.
+When the Other_Side_Pilot_Flying event occurs, the Pilot_Flying state transitions to the Inhibited state.

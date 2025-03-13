@@ -1,0 +1,12 @@
+[Left_Side_FGS]-[LR_Bus]
+[LR_Bus]-[Right_Side_FGS]
+LR_Bus<-up-(CLK2)
+[Left_Side_FGS]-[RL_Bus]
+[RL_Bus]-[Right_Side_FGS]
+RL_Bus<-up-(CLK4)
+(Left_Transfer_Switch: boolean)->[Left_Side_FGS]
+(Left_Primary_Side: boolean)->[Left_Side_FGS]
+Left_Side_FGS<-up-(CLK1)
+(Right_Transfer_Switch: boolean)->[Right_Side_FGS]
+(Right_Primary_Side: boolean)->[Right_Side_FGS]
+Right_Side_FGS<-up-(CLK3)
