@@ -72,7 +72,7 @@ def staticPlantumlCode(text):
     doc = sent_tokenize(text)
     main_sub_component = []
 
-    f = open(r"/Users/candi/PycharmProjects/NLPtoUML/src/uml/s_model_specs.txt", "w")
+    f = open(r"/src/uml/s_model_specs.txt", "w")
     # Iterate sentence-by-sentence then word-by-word
     for sent in doc:
         # Call Tokenize and Stemming and POS Tag Function
@@ -139,7 +139,7 @@ def staticPlantumlCode(text):
 def dynamicPlantumlCode(text):
     doc = sent_tokenize(text)
 
-    f = open(r"/Users/candi/PycharmProjects/NLPtoUML/src/uml/d_model_specs.txt", 'w')
+    f = open(r"/src/uml/d_model_specs.txt", 'w')
 
     # Needed to state what type of diagram is being constructed (State Diagram)
     f.write("state Diagram {\nhide empty description \n[*]--> Start\n")
@@ -189,11 +189,11 @@ def plantUMLServer(path):
 
 if __name__ == "__main__":
     # specification text
-    static_text = open(r"/Users/candi/PycharmProjects/NLPtoUML/src/data/static_text.txt", "r")
+    static_text = open(r"/src/data/static_text.txt", "r")
 
-    dynamic_text = open(r"/Users/candi/PycharmProjects/NLPtoUML/src/data/dynamic_text.txt", "r")
+    dynamic_text = open(r"/src/data/dynamic_text.txt", "r")
 
     dynamicPlantumlCode(dynamic_text.read())
     staticPlantumlCode(static_text.read())
-    plantUMLServer("/Users/candi/PycharmProjects/NLPtoUML/src/uml/d_model_specs.txt")
-    plantUMLServer("/Users/candi/PycharmProjects/NLPtoUML/src/uml/s_model_specs.txt")
+    plantUMLServer("/src/uml/d_model_specs.txt")
+    plantUMLServer("/src/uml/s_model_specs.txt")
